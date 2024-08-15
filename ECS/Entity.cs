@@ -8,9 +8,9 @@ namespace GLEntitySystem
         public List<IComponent> components { get => _components; }
 
         //Origin
-        public Vector3 position { get; set; } = new Vector3(0);
-        public Vector3 scale { get; set; } = new Vector3(1);
-        public Vector3 rotation { get; set; } = new Vector3(0);
+        public Vector3 position = new Vector3(0);
+        public Vector3 scale = new Vector3(1);
+        public Vector3 rotation = new Vector3(0);
         public Entity()
         {
             _components = new List<IComponent>();
