@@ -8,6 +8,5 @@ To add components, use the ```AddComponent()``` method.
 ```entity.AddComponent<T>(new T())```
 
 Additionally, you can also get a specific component or get all the components from the entity.
-```entity.GetComponent<T>() //Gets the first component of the given type
-entity.GetComponents() //Gets all the components of the entity
-```
+```entity.GetComponent<T>() //Gets the first component of the given type```
+```entity.GetComponents() //Gets all the components of the entity```
