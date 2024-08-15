@@ -1,7 +1,7 @@
 # GLEntitySystem
 GLEntitySystem consists of entities that could hold components. Components determine how the entity acts before and during runtime.
 Currently, these entities are used to render meshes in an open gl context but more sophisticated components will be added.
-##Create Entity
+## Create Entity
 Entities are created with the entity class 
 ```
 Entity entity = new Entity()
@@ -17,7 +17,7 @@ entity.GetComponent<T>() //Gets the first component of the given type
 entity.GetComponents() //Gets all the components of the entity
 ```
 
-##Create Components
+## Create Components
 Components can be created by inheriting the	```IComponent``` interface.
 ```
 class CustomComponent : IComponent
