@@ -16,3 +16,18 @@ Additionally, you can also get a specific component or get all the components fr
 entity.GetComponent<T>() //Gets the first component of the given type
 entity.GetComponents() //Gets all the components of the entity
 ```
+
+##Create Components
+Components can be created by inheriting the	```IComponent``` interface.
+```
+class CustomComponent : IComponent
+{
+	public void OnStart(Entity entity) { }
+	public void OnUpdate(Entity entity) { }
+}
+```
+The IComponent requires you to implement the ```OnStart()``` and ```Onupdate()``` methods. 
+```OnStart()```is executed as soon as the component is added.
+```OnUpdate()``` is executed every frame.
+
+The two methods are also passed with a reference of the parent entity. So you could modify it's behaviour.
