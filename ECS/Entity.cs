@@ -42,6 +42,15 @@ namespace GLEntitySystem
         }
 
         /// <summary>
+        /// Returns all the components in the entity
+        /// </summary>
+        /// <returns></returns>
+        public List<IComponent>? GetComponents()
+        {
+            return _components;
+        }
+
+        /// <summary>
         /// Adds a component deriving from IComponent interface
         /// </summary>
         /// <typeparam name="T"></typeparam>
