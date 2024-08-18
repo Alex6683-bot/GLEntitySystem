@@ -26,9 +26,9 @@ namespace GLEntitySystem
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns>Component deriving from IComponent interface. Returns null if not found</returns>
-        public IComponent? GetComponent<T>() where T : IComponent
+        public T? GetComponent<T>() where T : IComponent
         {
-            return _components.Where(x => x.GetType() == typeof(T)).FirstOrDefault();
+            return (T)(_components.Where(x => x.GetType() == typeof(T)).FirstOrDefault());
         }
 
         /// <summary>
@@ -36,9 +36,9 @@ namespace GLEntitySystem
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns>List of components deriving of the give type. Returns null if not found</returns>
-        public List<IComponent>? GetComponents<T>() where T : IComponent
+        public List<T>? GetComponents<T>() where T : IComponent
         {
-            return _components.Where(x => x.GetType() == typeof(T)).ToList();
+            return (T)(_components.Where(x => x.GetType() == typeof(T)).ToList());
         }
 
         /// <summary>
