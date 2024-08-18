@@ -38,7 +38,8 @@ namespace GLEntitySystem
         /// <returns>List of components deriving of the give type. Returns null if not found</returns>
         public List<T>? GetComponents<T>() where T : IComponent
         {
-            return (T)(_components.Where(x => x.GetType() == typeof(T)).ToList());
+            List<IComponent> components = _components.Where(x => x.GetType() == typeof(T)).ToList();
+            return new List<T>(components.Cast<T>());
         }
 
         /// <summary>
