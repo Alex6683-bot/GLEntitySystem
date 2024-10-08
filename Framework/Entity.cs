@@ -3,7 +3,7 @@ using GLRenderer.Rendering;
 using OpenTK.Mathematics;
 using System.Diagnostics;
 
-namespace GLEntitySystem
+namespace GLComponentSystem
 {
     public class Entity
     {
@@ -15,8 +15,11 @@ namespace GLEntitySystem
         public Vector3 scale = new Vector3(1);
         public Vector3 rotation = new Vector3(0);
 
-        //Flagging
+        //Callback
+        public static Action<Entity, Component> OnComponentAdded { get; set; }
+        public static Action<Entity, Component> OnComponentRemoved { get; set; }
 
+        //Flagging
         #region FlagCallbacks
         private void SingleTonFlagCallBack(Entity entity, Component component, ComponentFlag flag)
         {
@@ -25,6 +28,7 @@ namespace GLEntitySystem
                 throw new ComponentFlagException($"Cannot add duplicate component of {component} with flag: {flag}");
         }
         #endregion
+
         private Dictionary<ComponentFlag, Action<Entity, Component, ComponentFlag>> _flagActionLookup;
         private Dictionary<ComponentFlag, Action<Entity, Component, ComponentFlag>> flagActionLookup
         {
@@ -37,6 +41,7 @@ namespace GLEntitySystem
                 return _flagActionLookup;
             }
         }
+        
         public Entity()
         {
             _components = new List<Component>();
@@ -78,18 +83,53 @@ namespace GLEntitySystem
         }
 
         /// <summary>
-        /// Adds a component deriving from IComponent interface
+        /// Checks if given component type is attached to entity
+        /// </summary>
+        /// <returns>True if exists, if not false</returns>
+        public bool HasComponent<T>() where T : Component
+        {
+            return GetComponent<T>() != null;
+        }
+
+        /// <summary>
+        /// Adds a component deriving from Component base class
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="component"></param>
         public T AddComponent<T>(T component) where T : Component
         {
             _components.Add(component);
+            OnComponentAdded?.Invoke(this, component);
             component.OnStart(this);
 
             foreach (ComponentFlag componentFlag in component.flags) flagActionLookup[componentFlag].Invoke(this, component, componentFlag);
 
             return component;
+        }
+
+
+        /// <summary>
+        /// Removes a component deriving from Component base clas
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="component"></param>
+        /// <returns>Returns whether the removal was successful</returns>
+        public bool RemoveComponent<T>(T component) where T : Component
+        {
+            bool success = _components.Remove(component);
+            OnComponentRemoved?.Invoke(this, component);
+
+            component.OnUnload(this);
+
+            return success;
+        }
+
+        /// <summary>
+        /// Unloads the given entity and clears all the components attached to the entity
+        /// </summary>
+        public void Destory()
+        {
+            for (int i = 0; i < components.Count; i++) RemoveComponent(components[i]);
         }
 
     }

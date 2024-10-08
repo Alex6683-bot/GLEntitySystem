@@ -1,5 +1,6 @@
-# GLEntitySystem
-GLEntitySystem consists of entities that could hold components. Components determine how the entity acts before and during runtime.
+# GLComponentSystem
+GLComponentSystem is a simple component framework I made to experiment and learn Component Architecture concepts by applying it in my Open GL projects. It may not be the most efficient, but the code will keep improving and will be added new and new features and optmisations. 
+At basic level, the frameworks consists of entities that could hold components. Components determine how the entity acts before and during runtime.
 Currently, these entities are used to render meshes in an open gl context but more sophisticated components will be added.
 ## Create Entity
 Entities are created with the entity class 

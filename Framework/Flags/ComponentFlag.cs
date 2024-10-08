@@ -1,5 +1,5 @@
 ﻿
-namespace GLEntitySystem
+namespace GLComponentSystem
 {
     public enum ComponentFlag
     {
